@@ -20,7 +20,6 @@ const firestore_1 = require("firebase/firestore");
 const firestore_2 = require("firebase/firestore");
 const axios_1 = __importDefault(require("axios"));
 const path_1 = __importDefault(require("path"));
-const cron_1 = require("cron");
 const router = express_1.default.Router();
 const app1 = (0, express_1.default)();
 const port = process.env.PORT || 3000;
@@ -45,8 +44,8 @@ router.get('/test', (req, response) => {
     response.send('Dernière mise à jour: ' + Date());
     //__dirname : It will resolve to your project folder.
 });
-var myJob = new cron_1.CronJob('* * * * * *', function () { (console.log('bonjour')); });
-myJob.start();
+// var myJob = new CronJob('* * * * * *', function(reponse){(console.log('bonjour'))});
+// myJob.start();
 // function loggerMiddleware(request: express.Request, response: express.Response, next) {
 //     console.log(`${request.method} ${request.path}`);
 //     next();
