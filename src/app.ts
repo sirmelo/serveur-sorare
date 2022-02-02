@@ -6,7 +6,8 @@ import { collection, getDocs, getDoc, getFirestore, query, where } from "firebas
 import { doc, setDoc } from "firebase/firestore"; 
 import qs from 'qs';
 import axios, { AxiosError } from 'axios';
-import path from 'path'
+import path from 'path';
+import { CronJob } from 'cron';
 
 const router = express.Router(); 
 const app1 = express();
@@ -35,7 +36,8 @@ router.get('/test', (req,response) => {
   response.send('Dernière mise à jour: '+ Date());
   //__dirname : It will resolve to your project folder.
 }); 
-
+var myJob = new CronJob('* * * * * *', function(){(console.log('bonjour'))});
+myJob.start();
 
 // function loggerMiddleware(request: express.Request, response: express.Response, next) {
 //     console.log(`${request.method} ${request.path}`);
@@ -1693,7 +1695,10 @@ router.get('/api/cards', (req,res) => {
 
     
     main().catch((error) => console.error(error))
+
 });
+
+
 
 app1.use('/',router);
 app1.listen(port);
