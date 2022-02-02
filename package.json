@@ -2,9 +2,9 @@
   "name": "serveursorare",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch-and-run": "tsc -w & nodemon -q -w dist dist/app.js"
   },
