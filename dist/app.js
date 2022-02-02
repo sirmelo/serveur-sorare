@@ -19,6 +19,7 @@ const database_1 = require("firebase/database");
 const firestore_1 = require("firebase/firestore");
 const firestore_2 = require("firebase/firestore");
 const axios_1 = __importDefault(require("axios"));
+const path_1 = __importDefault(require("path"));
 const router = express_1.default.Router();
 const app1 = (0, express_1.default)();
 const port = 3000;
@@ -35,6 +36,10 @@ const firebaseConfig = {
 const app = (0, app_1.initializeApp)(firebaseConfig);
 const database = (0, database_1.getDatabase)(app);
 const db = (0, firestore_1.getFirestore)();
+router.get('/', (req, res) => {
+    res.sendFile(path_1.default.join(__dirname + '/index.html'));
+    //__dirname : It will resolve to your project folder.
+});
 // function loggerMiddleware(request: express.Request, response: express.Response, next) {
 //     console.log(`${request.method} ${request.path}`);
 //     next();
@@ -747,6 +752,8 @@ router.get('/players', (res, response) => {
                             notebetdsl15: notebetdsl15,
                             onSaleLimited: global.onSaleLimited,
                             onSaleRare: global.onSaleRare,
+                            onSaleUnique: global.onSaleUnique,
+                            onSaleSuperRare: global.onSaleSuperRare,
                             playername: playername,
                             playerpictureURL: global.playerpictureURL,
                             playerslug: playerslug,
