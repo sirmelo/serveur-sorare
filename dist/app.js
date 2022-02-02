@@ -992,7 +992,6 @@ router.get('/api/profil', function (req, res) {
 // app1.use('/',router);
 // app1.listen(port);
 router.get('/api/cards', (req, res) => {
-    res.sendFile(path_1.default.join(__dirname + '/index.html'));
     const user_token = req.query.token;
     const user = req.query.user;
     // cron.schedule('00 03  * *  *', function() {
