@@ -938,7 +938,6 @@ router.get('/api/profil', async function(req, res) {
 
 
 router.get('/api/cards', (req,res) => {
-  res.sendFile(path.join(__dirname+'/index.html'))
   const user_token = req.query.token;
   const user = req.query.user;
 
