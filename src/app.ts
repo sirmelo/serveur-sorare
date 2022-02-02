@@ -31,6 +31,11 @@ router.get('/', (req,res) => {
   res.sendFile(path.join(__dirname+'/index.html'));
   //__dirname : It will resolve to your project folder.
 }); 
+router.get('/test', (req,response) => {
+  response.send('Dernière mise à jour: '+ Date());
+  //__dirname : It will resolve to your project folder.
+}); 
+
 
 // function loggerMiddleware(request: express.Request, response: express.Response, next) {
 //     console.log(`${request.method} ${request.path}`);
@@ -932,7 +937,8 @@ router.get('/api/profil', async function(req, res) {
 
 
 
-router.get('/api/cards', (req) => {
+router.get('/api/cards', (req,res) => {
+  res.sendFile(path.join(__dirname+'/index.html'))
   const user_token = req.query.token;
   const user = req.query.user;
 
