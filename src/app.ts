@@ -10,7 +10,7 @@ import path from 'path'
 
 const router = express.Router(); 
 const app1 = express();
-const port = 8080;
+const port = process.env.PORT || 3000;
 const data =[];
 
 const firebaseConfig = {
