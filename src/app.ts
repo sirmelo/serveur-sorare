@@ -36,8 +36,9 @@ router.get('/test', (req,response) => {
   response.send('Dernière mise à jour: '+ Date());
   //__dirname : It will resolve to your project folder.
 }); 
-var myJob = new CronJob('* * * * * *', function(){(console.log('bonjour'))});
-myJob.start();
+// var myJob = new CronJob('* * * * * *', function(reponse){(console.log('bonjour'))});
+
+// myJob.start();
 
 // function loggerMiddleware(request: express.Request, response: express.Response, next) {
 //     console.log(`${request.method} ${request.path}`);
