@@ -6,7 +6,7 @@ import { collection, getDocs, getDoc, getFirestore, query, where } from "firebas
 import { doc, setDoc } from "firebase/firestore"; 
 import qs from 'qs';
 import axios, { AxiosError } from 'axios';
-
+import path from 'path'
 
 const router = express.Router(); 
 const app1 = express();
@@ -27,7 +27,10 @@ const firebaseConfig = {
   const database = getDatabase(app);
   const db = getFirestore();
 
-  
+router.get('/', (req,res) => {
+  res.sendFile(path.join(__dirname+'/index.html'));
+  //__dirname : It will resolve to your project folder.
+}); 
 
 // function loggerMiddleware(request: express.Request, response: express.Response, next) {
 //     console.log(`${request.method} ${request.path}`);
