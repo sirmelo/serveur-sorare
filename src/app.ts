@@ -36,7 +36,13 @@ router.get('/test', (req,response) => {
   response.send('Dernière mise à jour: '+ Date());
   //__dirname : It will resolve to your project folder.
 }); 
-// var myJob = new CronJob('* * * * * *', function(reponse){(console.log('bonjour'))});
+// var myJob = new CronJob('44 21 * * *', function(){
+//   axios.get('http://localhost:3000/players').then(resp => {
+
+//     console.log('en marche');
+  
+// });
+// });
 
 // myJob.start();
 
@@ -798,148 +804,6 @@ router.get('/api/profil', async function(req, res) {
   });
 });
 
-// router.get('/api/cards', async function(req, res) {
-
-  
-//   const GET_CARDS_CURRENT_USER = gql`
-//   query current_user{
-//     currentUser{
-//       cardCounts{
-//         limited
-//         rare
-//         superRare
-//         unique
-//       }
-//       paginatedCards(first:300){
-//         nodes{
-//           rarity
-//           player{
-//             position
-//             slug
-//             displayName
-//             age
-//             activeClub{
-//               slug
-//               domesticLeague{
-//                 slug
-//               }
-//             }
-//           }
-//           grade
-//           onSale
-//           ownerSince
-//           xp
-//           owner{
-//             from
-//             price
-//             transferType
-//           }
-//           name
-//           slug
-//           pictureUrl
-//         }
-//       }
-//     }
-//   }
-//   `;
-
-//   const code = req.query.token;
-//   const user = req.query.user;
-//   console.log(user);
-//   console.log(code);
-//   const headers = {'content-type': 'application/x-www-form-urlencoded'}
-//   axios.post('https://api.sorare.com/oauth/token','client_id=Jx38v06GOdnDTFVriMGYuh5A0DN26eCYP0txLu614AI&client_secret=z7d_cdmmj2zJsUY-Ko-q2gjJ58zewWnJYH-X9P_e2qg&code='+code+'&grant_type=authorization_code&redirect_uri=http://localhost:4200/auth/sorare/callback',{headers: headers})
-//   .then(async function (response) {
-//     res=response.data.access_token;
-//     const user_token = response.data.access_token;
-//     const endpoint = 'https://api.sorare.com/graphql'
-//     const graphQLClient = new GraphQLClient(endpoint, {
-//       headers: {
-//         Authorization: 'Bearer '+user_token+'',
-//         'content-type': 'application/json'
-//       },
-//     })
-//     const userCards = await graphQLClient.request(GET_CARDS_CURRENT_USER);
-//     const myCards = userCards.currentUser.paginatedCards.nodes;
-//     const nbRarityCards = userCards.currentUser.cardCounts;
-//     const nbCards = myCards.length;
-//     var allMyCards: any[] =[];
-//     console.log(response.data.access_token);
-
-//     set(ref(getDatabase(), user+'/mycards/nombreCards'), (nbRarityCards));
-//     for(let i=0; i<nbCards; i++){
-//       if(myCards[i].rarity != "common"){
-//         allMyCards.push(myCards[i]);
-//       }
-//     }
-//     const nbCardqRarity = allMyCards.length;
-//     for (let i=0;i<nbCardqRarity;i++){
-//       const playername= allMyCards[i].player.displayName;
-//       const age= allMyCards[i].player.age;
-//       const position= allMyCards[i].player.position;
-//       const dateAchat = allMyCards[i].ownerSince;
-//       const playerslug= allMyCards[i].player.slug;
-//       const Url= allMyCards[i].pictureUrl;
-//       const priceAchat= (allMyCards[i].owner.price)/Math.pow(10,18);
-//       const rarity= allMyCards[i].rarity;
-//       const cardslug= allMyCards[i].slug;
-//       const getOnSale= allMyCards[i].onSale;
-//       const grade= allMyCards[i].grade;
-//       const xp= allMyCards[i].xp;
-//       const transferType= allMyCards[i].owner.transferType;
-      
-//       if(allMyCards[i].player.activeClub.domesticLeague.slug!=null){
-//       global.leagueslug= allMyCards[i].player.activeClub.domesticLeague.slug;}
-//       else{const league="other"};
-
-//       if(global.leagueslug === "bundesliga-de" || global.leagueslug === "premier-league-gb-eng" || global.leagueslug === "ligue-1-fr" || global.leagueslug === "serie-a-it" || global.leagueslug === "laliga-santander"){global.competition = "champion-europe"}
-//       else if(global.leagueslug === "jupiler-pro-league" || global.leagueslug === "eredivisie" || global.leagueslug === "primeira-liga-pt" || global.leagueslug === "spor-toto-super-lig" || global.leagueslug === "austrian-bundesliga" || global.leagueslug === "russian-premier-league" || global.leaguesug === "ukrainian-premier-league"){global.competition = "challenger-europe"}
-//         else if(global.leagueslug === "j1-league" || global.leagueslug === "k-league"){global.competition = "champion-asia"}
-//           else if(global.leagueslug === "superliga-argentina-de-futbol" || global.leagueslug === "campeonato-brasileiro-serie-a" || global.leagueslug === "mlspa" || global.leagueslug === "liga-mx"){global.competition = "champion-america"}
-//             else{global.competition = "other"};
-
-//       const docRef = doc(getFirestore(),"players",global.competition, position, playerslug);
-//       const docSnap = await getDoc(docRef);
-//       if (docSnap.exists()) {
-//         if(rarity==="limited"){global.lastValue = docSnap.data().priceLimited, global.onSale =docSnap.data().onSaleLimited}
-//         else if(rarity==="rare"){global.lastValue = docSnap.data().priceRare, global.onSale =docSnap.data().onSaleRare}
-//       } else {
-//         // doc.data() will be undefined in this case
-//         global.lastValue =0;
-//       }
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/playername'),(playername));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/age'),(age));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/position'),(position));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/dateAchat'),(dateAchat));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/priceAchat'),(priceAchat));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/Url'),(Url));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/rarete'),(rarity));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/cardslug'),(cardslug));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/onSale'),(getOnSale));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/grade'),(grade));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/xp'),(xp));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/transferType'),(transferType));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/league'),(global.leagueslug));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/competition'),(global.competition));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/lastValue'),(global.lastValue));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/onSale'),(global.onSale));
-//       set(ref(getDatabase(), user+'/mycards/card/'+i+'/rentapotent'),(global.lastValue-priceAchat));
-
-
-//     }
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
-// });
-
-// app1.use('/',router);
-// app1.listen(port);
-
-
-
-
-
 router.get('/api/cards', (req,res) => {
   const user_token = req.query.token;
   const user = req.query.user;
@@ -1268,8 +1132,9 @@ router.get('/api/cards', (req,res) => {
           else{global.competition = "other"};
 
     if(allMyCards[i].player.activeClub.pictureUrl !=null){
+      global.team = allMyCards[i].player.activeClub.name;
       global.teamUrl = allMyCards[i].player.activeClub.pictureUrl;
-    }else{global.teamUrl=""}
+    }else{global.teamUrl="";global.team =""}
       
     const docRef = doc(getFirestore(),"players",global.competition, position, playerslug);
     const docSnap = await getDoc(docRef);
@@ -1310,6 +1175,8 @@ router.get('/api/cards', (req,res) => {
     set(ref(getDatabase(), user+'/mycards/card/'+i+'/onSale'),(global.onSale));
     set(ref(getDatabase(), user+'/mycards/card/'+i+'/rentapotent'),(global.lastValue-global.priceAchat));
     set(ref(getDatabase(), user+'/mycards/card/'+i+'/teamUrl'),(global.teamUrl));
+    set(ref(getDatabase(), user+'/mycards/card/'+i+'/teamUrl'),(global.team));
+
 
     if(global.priceAchat!=0){
       set(ref(getDatabase(), user+'/mycards/card/'+i+'/rentapotentPercent'),(((global.lastValue-global.priceAchat))/global.priceAchat)*100);
