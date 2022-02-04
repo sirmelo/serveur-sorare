@@ -1175,7 +1175,7 @@ router.get('/api/cards', (req,res) => {
     set(ref(getDatabase(), user+'/mycards/card/'+i+'/onSale'),(global.onSale));
     set(ref(getDatabase(), user+'/mycards/card/'+i+'/rentapotent'),(global.lastValue-global.priceAchat));
     set(ref(getDatabase(), user+'/mycards/card/'+i+'/teamUrl'),(global.teamUrl));
-    set(ref(getDatabase(), user+'/mycards/card/'+i+'/teamUrl'),(global.team));
+    set(ref(getDatabase(), user+'/mycards/card/'+i+'/team'),(global.team));
 
 
     if(global.priceAchat!=0){
