@@ -1251,7 +1251,7 @@ router.get('/api/cards', (req, res) => {
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/mycards/card/' + i + '/onSale'), (global.onSale));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/mycards/card/' + i + '/rentapotent'), (global.lastValue - global.priceAchat));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/mycards/card/' + i + '/teamUrl'), (global.teamUrl));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/mycards/card/' + i + '/teamUrl'), (global.team));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/mycards/card/' + i + '/team'), (global.team));
                 if (global.priceAchat != 0) {
                     (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/mycards/card/' + i + '/rentapotentPercent'), (((global.lastValue - global.priceAchat)) / global.priceAchat) * 100);
                 }
