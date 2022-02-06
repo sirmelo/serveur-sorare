@@ -794,7 +794,11 @@ router.get('/api/profil', async function(req, res) {
     set(ref(getDatabase(), user+'/profil/totalBalance'),(myProfil.totalBalance/Math.pow(10,18)));
     set(ref(getDatabase(), user+'/profil/createdAt'),(myProfil.createdAt));
     set(ref(getDatabase(), user+'/profil/clubName'),(myProfil.profile.clubName));
-    set(ref(getDatabase(), user+'/profil/pictureUrl'),(myProfil.profile.pictureUrl));
+    if(myProfil.profile.pictureUrl===""){
+      set(ref(getDatabase(), user+'/profil/pictureUrl'),("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
+    }else{
+      set(ref(getDatabase(), user+'/profil/pictureUrl'),(myProfil.profile.pictureUrl));
+    }
     if(myProfil.allTimeBestDecksInFormation[0] != null){
       set(ref(getDatabase(), user+'/profil/BestDeck'),(myProfil.allTimeBestDecksInFormation[0]));
     }
