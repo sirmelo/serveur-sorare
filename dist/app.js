@@ -855,7 +855,7 @@ router.get('/api/profil', function (req, res) {
                 console.log(response.data.access_token);
                 console.log(myProfil);
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/token'), (user_token));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/token'), (user_token));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/nickname'), (myProfil.nickname));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/totalBalance'), (myProfil.totalBalance / Math.pow(10, 18)));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/createdAt'), (myProfil.createdAt));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/clubName'), (myProfil.profile.clubName));
