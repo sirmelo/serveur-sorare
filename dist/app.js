@@ -859,7 +859,12 @@ router.get('/api/profil', function (req, res) {
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/totalBalance'), (myProfil.totalBalance / Math.pow(10, 18)));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/createdAt'), (myProfil.createdAt));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/clubName'), (myProfil.profile.clubName));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/pictureUrl'), (myProfil.profile.pictureUrl));
+                if (myProfil.profile.pictureUrl === "") {
+                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/pictureUrl'), ("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
+                }
+                else {
+                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/pictureUrl'), (myProfil.profile.pictureUrl));
+                }
                 if (myProfil.allTimeBestDecksInFormation[0] != null) {
                     (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/BestDeck'), (myProfil.allTimeBestDecksInFormation[0]));
                 }
