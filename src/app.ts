@@ -790,7 +790,7 @@ router.get('/api/profil', async function(req, res) {
     console.log(response.data.access_token);
     console.log(myProfil);
     set(ref(getDatabase(), user+'/profil/token'),(user_token));
-    set(ref(getDatabase(), user+'/profil/token'),(user_token));
+    set(ref(getDatabase(), user+'/profil/nickname'),(myProfil.nickname));
     set(ref(getDatabase(), user+'/profil/totalBalance'),(myProfil.totalBalance/Math.pow(10,18)));
     set(ref(getDatabase(), user+'/profil/createdAt'),(myProfil.createdAt));
     set(ref(getDatabase(), user+'/profil/clubName'),(myProfil.profile.clubName));
