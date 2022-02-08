@@ -775,11 +775,11 @@ router.get('/api/profil', async function(req, res) {
   axios.post('https://api.sorare.com/oauth/token','client_id=Jx38v06GOdnDTFVriMGYuh5A0DN26eCYP0txLu614AI&client_secret=z7d_cdmmj2zJsUY-Ko-q2gjJ58zewWnJYH-X9P_e2qg&code='+code+'&grant_type=authorization_code&redirect_uri=http://localhost:4200/auth/sorare/callback',{headers: headers})
   .then(async function (response) {
     res=response.data.access_token;
-    const user_token = response.data.access_token;
+    global.user_token = response.data.access_token;
     const endpoint = 'https://api.sorare.com/graphql'
     const graphQLClient = new GraphQLClient(endpoint, {
       headers: {
-        Authorization: 'Bearer '+user_token+'',
+        Authorization: 'Bearer '+global.user_token+'',
         'content-type': 'application/json'
       },
     })
@@ -789,7 +789,7 @@ router.get('/api/profil', async function(req, res) {
     const myProfil=profil.currentUser;
     console.log(response.data.access_token);
     console.log(myProfil);
-    set(ref(getDatabase(), user+'/profil/token'),(user_token));
+    set(ref(getDatabase(), user+'/profil/token'),(global.user_token));
     set(ref(getDatabase(), user+'/profil/nickname'),(myProfil.nickname));
     set(ref(getDatabase(), user+'/profil/totalBalance'),(myProfil.totalBalance/Math.pow(10,18)));
     set(ref(getDatabase(), user+'/profil/createdAt'),(myProfil.createdAt));
@@ -806,20 +806,20 @@ router.get('/api/profil', async function(req, res) {
       const allUsers = snapshot.val();
       if(allUsers === undefined || allUsers === null){
       set(ref(getDatabase(),'allUers/0/user'),(user));
-      set(ref(getDatabase(), 'allUers/0/user'),(user_token));
+      set(ref(getDatabase(), 'allUers/0/user'),(global.user_token));
       }else{
       const nbAlUsers  = allUsers.length
       for(let i=0;i<nbAlUsers;i++){
         if(allUsers[i].user === user){
           set(ref(getDatabase(), 'allUers/'+i+'/user'),(user));
-          set(ref(getDatabase(), 'allUers/'+i+'/token'),(user_token));
+          set(ref(getDatabase(), 'allUers/'+i+'/token'),(global.user_token));
         }else{
           set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/user'),(user));
-          set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/token'),(user_token));
+          set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/token'),(global.user_token));
         }
       }
       set(ref(getDatabase(), user+'/profil/historique/0/user'),(user));
-      set(ref(getDatabase(), user+'/profil//historique/0/token'),(user_token));
+      set(ref(getDatabase(), user+'/profil//historique/0/token'),(global.user_token));
       }
     },{onlyOnce: true});  
 
