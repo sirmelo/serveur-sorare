@@ -802,6 +802,19 @@ router.get('/api/profil', async function(req, res) {
     if(myProfil.allTimeBestDecksInFormation[0] != null){
       set(ref(getDatabase(), user+'/profil/BestDeck'),(myProfil.allTimeBestDecksInFormation[0]));
     }
+    onValue(ref(getDatabase(),'allUers/'), (snapshot:DataSnapshot) => {
+      const allUsers = snapshot.val();
+      if(allUsers != undefined && allUsers != null){
+      const nbAlUsers  = allUsers.length
+      set(ref(getDatabase(),'allUers/'+nbAlUsers+'/user'),(user));
+      set(ref(getDatabase(),'allUers/'+nbAlUsers+'/token'),(user_token));
+
+      }else{
+      set(ref(getDatabase(), user+'/profil/historique/0/user'),(user));
+      set(ref(getDatabase(), user+'/profil//historique/0/token'),(user_token));
+      }
+    },{onlyOnce: true});  
+
   })
   .catch(function (error) {
     console.log(error);
