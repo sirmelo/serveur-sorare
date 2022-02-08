@@ -842,11 +842,11 @@ router.get('/api/profil', function (req, res) {
             .then(function (response) {
             return __awaiter(this, void 0, void 0, function* () {
                 res = response.data.access_token;
-                const user_token = response.data.access_token;
+                global.user_token = response.data.access_token;
                 const endpoint = 'https://api.sorare.com/graphql';
                 const graphQLClient = new graphql_request_1.GraphQLClient(endpoint, {
                     headers: {
-                        Authorization: 'Bearer ' + user_token + '',
+                        Authorization: 'Bearer ' + global.user_token + '',
                         'content-type': 'application/json'
                     },
                 });
@@ -854,7 +854,7 @@ router.get('/api/profil', function (req, res) {
                 const myProfil = profil.currentUser;
                 console.log(response.data.access_token);
                 console.log(myProfil);
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/token'), (user_token));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/token'), (global.user_token));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/nickname'), (myProfil.nickname));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/totalBalance'), (myProfil.totalBalance / Math.pow(10, 18)));
                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/createdAt'), (myProfil.createdAt));
@@ -872,22 +872,22 @@ router.get('/api/profil', function (req, res) {
                     const allUsers = snapshot.val();
                     if (allUsers === undefined || allUsers === null) {
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (user));
-                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (user_token));
+                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (global.user_token));
                     }
                     else {
                         const nbAlUsers = allUsers.length;
                         for (let i = 0; i < nbAlUsers; i++) {
                             if (allUsers[i].user === user) {
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/user'), (user));
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/token'), (user_token));
+                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/token'), (global.user_token));
                             }
                             else {
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/user'), (user));
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/token'), (user_token));
+                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/token'), (global.user_token));
                             }
                         }
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/historique/0/user'), (user));
-                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil//historique/0/token'), (user_token));
+                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil//historique/0/token'), (global.user_token));
                     }
                 }, { onlyOnce: true });
             });
