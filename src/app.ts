@@ -768,18 +768,18 @@ router.get('/api/profil', async function(req, res) {
   `;
 
   const code = req.query.code;
-  global.user = req.query.user;
+   const user = req.query.user;
   console.log(global.user);
   console.log(code);
   const headers = {'content-type': 'application/x-www-form-urlencoded'}
   axios.post('https://api.sorare.com/oauth/token','client_id=Jx38v06GOdnDTFVriMGYuh5A0DN26eCYP0txLu614AI&client_secret=z7d_cdmmj2zJsUY-Ko-q2gjJ58zewWnJYH-X9P_e2qg&code='+code+'&grant_type=authorization_code&redirect_uri=http://localhost:4200/auth/sorare/callback',{headers: headers})
   .then(async function (response) {
     res=response.data.access_token;
-    global.user_token = response.data.access_token;
+    const user_token = response.data.access_token;
     const endpoint = 'https://api.sorare.com/graphql'
     const graphQLClient = new GraphQLClient(endpoint, {
       headers: {
-        Authorization: 'Bearer '+global.user_token+'',
+        Authorization: 'Bearer '+user_token+'',
         'content-type': 'application/json'
       },
     })
@@ -788,25 +788,25 @@ router.get('/api/profil', async function(req, res) {
     const myProfil=profil.currentUser;
     console.log(response.data.access_token);
     console.log(myProfil);
-    set(ref(getDatabase(), global.user+'/profil/token'),(global.user_token));
-    set(ref(getDatabase(), global.user+'/profil/nickname'),(myProfil.nickname));
-    set(ref(getDatabase(), global.user+'/profil/totalBalance'),(myProfil.totalBalance/Math.pow(10,18)));
-    set(ref(getDatabase(), global.user+'/profil/createdAt'),(myProfil.createdAt));
-    set(ref(getDatabase(), global.user+'/profil/clubName'),(myProfil.profile.clubName));
+    set(ref(getDatabase(), user+'/profil/token'),(user_token));
+    set(ref(getDatabase(), user+'/profil/nickname'),(myProfil.nickname));
+    set(ref(getDatabase(), user+'/profil/totalBalance'),(myProfil.totalBalance/Math.pow(10,18)));
+    set(ref(getDatabase(), user+'/profil/createdAt'),(myProfil.createdAt));
+    set(ref(getDatabase(), user+'/profil/clubName'),(myProfil.profile.clubName));
     if(myProfil.profile.pictureUrl===""){
-      set(ref(getDatabase(), global.user+'/profil/pictureUrl'),("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
+      set(ref(getDatabase(), user+'/profil/pictureUrl'),("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
     }else{
-      set(ref(getDatabase(), global.user+'/profil/pictureUrl'),(myProfil.profile.pictureUrl));
+      set(ref(getDatabase(), user+'/profil/pictureUrl'),(myProfil.profile.pictureUrl));
     }
     if(myProfil.allTimeBestDecksInFormation[0] != null){
-      set(ref(getDatabase(), global.user+'/profil/BestDeck'),(myProfil.allTimeBestDecksInFormation[0]));
+      set(ref(getDatabase(), user+'/profil/BestDeck'),(myProfil.allTimeBestDecksInFormation[0]));
     }
-    const users = collection(db,"users");
-    await setDoc(doc(users, global.user),{
-      Maj:Date(),
-      user:global.user,
-      token:global.user_token,
-    });
+    // const users = collection(db,"users");
+    // await setDoc(doc(users, global.user),{
+    //   Maj:Date(),
+    //   user:global.user,
+    //   token:global.user_token,
+    // });
 
   })
   .catch(function (error) {
