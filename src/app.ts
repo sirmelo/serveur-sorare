@@ -768,8 +768,8 @@ router.get('/api/profil', async function(req, res) {
   `;
 
   const code = req.query.code;
-  const user = req.query.user;
-  console.log(user);
+  global.user = req.query.user;
+  console.log(global.user);
   console.log(code);
   const headers = {'content-type': 'application/x-www-form-urlencoded'}
   axios.post('https://api.sorare.com/oauth/token','client_id=Jx38v06GOdnDTFVriMGYuh5A0DN26eCYP0txLu614AI&client_secret=z7d_cdmmj2zJsUY-Ko-q2gjJ58zewWnJYH-X9P_e2qg&code='+code+'&grant_type=authorization_code&redirect_uri=http://localhost:4200/auth/sorare/callback',{headers: headers})
@@ -789,36 +789,36 @@ router.get('/api/profil', async function(req, res) {
     const myProfil=profil.currentUser;
     console.log(response.data.access_token);
     console.log(myProfil);
-    set(ref(getDatabase(), user+'/profil/token'),(global.user_token));
-    set(ref(getDatabase(), user+'/profil/nickname'),(myProfil.nickname));
-    set(ref(getDatabase(), user+'/profil/totalBalance'),(myProfil.totalBalance/Math.pow(10,18)));
-    set(ref(getDatabase(), user+'/profil/createdAt'),(myProfil.createdAt));
-    set(ref(getDatabase(), user+'/profil/clubName'),(myProfil.profile.clubName));
+    set(ref(getDatabase(), global.user+'/profil/token'),(global.user_token));
+    set(ref(getDatabase(), global.user+'/profil/nickname'),(myProfil.nickname));
+    set(ref(getDatabase(), global.user+'/profil/totalBalance'),(myProfil.totalBalance/Math.pow(10,18)));
+    set(ref(getDatabase(), global.user+'/profil/createdAt'),(myProfil.createdAt));
+    set(ref(getDatabase(), global.user+'/profil/clubName'),(myProfil.profile.clubName));
     if(myProfil.profile.pictureUrl===""){
-      set(ref(getDatabase(), user+'/profil/pictureUrl'),("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
+      set(ref(getDatabase(), global.user+'/profil/pictureUrl'),("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
     }else{
-      set(ref(getDatabase(), user+'/profil/pictureUrl'),(myProfil.profile.pictureUrl));
+      set(ref(getDatabase(), global.user+'/profil/pictureUrl'),(myProfil.profile.pictureUrl));
     }
     if(myProfil.allTimeBestDecksInFormation[0] != null){
-      set(ref(getDatabase(), user+'/profil/BestDeck'),(myProfil.allTimeBestDecksInFormation[0]));
+      set(ref(getDatabase(), global.user+'/profil/BestDeck'),(myProfil.allTimeBestDecksInFormation[0]));
     }
     onValue(ref(getDatabase(),'allUers/'), (snapshot:DataSnapshot) => {
       const allUsers = snapshot.val();
       if(allUsers === undefined || allUsers === null){
-      set(ref(getDatabase(),'allUers/0/user'),(user));
+      set(ref(getDatabase(),'allUers/0/user'),(global.user));
       set(ref(getDatabase(), 'allUers/0/token'),(global.user_token));
       set(ref(getDatabase(), 'allUers/0/date'),(Date()));
 
       }else{
       const nbAlUsers  = allUsers.length
       for(let i=0;i<nbAlUsers;i++){
-        if(allUsers[i].user === user){
-          set(ref(getDatabase(), 'allUers/'+i+'/user'),(user));
+        if(allUsers[i].user === global.user){
+          set(ref(getDatabase(), 'allUers/'+i+'/user'),(global.user));
           set(ref(getDatabase(), 'allUers/'+i+'/token'),(global.user_token));
           set(ref(getDatabase(), 'allUers/'+i+'/date'),(Date()));
 
         }else{
-          set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/user'),(user));
+          set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/user'),(global.user));
           set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/token'),(global.user_token));
           set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/date'),(Date()));
           }
