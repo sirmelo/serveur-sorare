@@ -1086,13 +1086,15 @@ router.get('/api/cards', (req,res) => {
   var tabBalanceSent: any[] =[];
   var tabBalanceReceived: any[] =[];
   var tabAllValue: any[] =[];
-  
+  var d = new Date();
+  d = new Date(d.setHours(d.getHours() + 2));
   set(ref(getDatabase(), user+'/mycards/card/'),(""));
   set(ref(getDatabase(), user+'/myauctions/auction'), (""));
   set(ref(getDatabase(), user+'/mydirectoffers'), (""));
   set(ref(getDatabase(), user+'/mycards/nombreCards'), (nbRarityCards));
   set(ref(getDatabase(), user+'/profil/watching/totalWallet'),(userWallet.currentUser.totalBalance/Math.pow(10,18)));
   set(ref(getDatabase(), user+'/profil/lastRefresh'),(Date()));
+  set(ref(getDatabase(), user+'/profil/nextRefresh'),(d));
 
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
