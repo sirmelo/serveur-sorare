@@ -850,7 +850,6 @@ router.get('/api/profil', function (req, res) {
                         'content-type': 'application/json'
                     },
                 });
-                var tabUsers = [];
                 const profil = yield graphQLClient.request(GET_PROFIL_CURRENT_USER);
                 const myProfil = profil.currentUser;
                 console.log(response.data.access_token);
@@ -872,6 +871,7 @@ router.get('/api/profil', function (req, res) {
                 (0, database_1.onValue)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/'), (snapshot) => {
                     const allUsers = snapshot.val();
                     const nbAlUsers = allUsers.length;
+                    var tabUsers = [];
                     if (allUsers === undefined || allUsers === null) {
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (global.user));
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/token'), (global.user_token));
