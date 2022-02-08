@@ -834,8 +834,8 @@ router.get('/api/profil', function (req, res) {
   }
   `;
         const code = req.query.code;
-        const user = req.query.user;
-        console.log(user);
+        global.user = req.query.user;
+        console.log(global.user);
         console.log(code);
         const headers = { 'content-type': 'application/x-www-form-urlencoded' };
         axios_1.default.post('https://api.sorare.com/oauth/token', 'client_id=Jx38v06GOdnDTFVriMGYuh5A0DN26eCYP0txLu614AI&client_secret=z7d_cdmmj2zJsUY-Ko-q2gjJ58zewWnJYH-X9P_e2qg&code=' + code + '&grant_type=authorization_code&redirect_uri=http://localhost:4200/auth/sorare/callback', { headers: headers })
@@ -854,37 +854,37 @@ router.get('/api/profil', function (req, res) {
                 const myProfil = profil.currentUser;
                 console.log(response.data.access_token);
                 console.log(myProfil);
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/token'), (global.user_token));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/nickname'), (myProfil.nickname));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/totalBalance'), (myProfil.totalBalance / Math.pow(10, 18)));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/createdAt'), (myProfil.createdAt));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/clubName'), (myProfil.profile.clubName));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/token'), (global.user_token));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/nickname'), (myProfil.nickname));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/totalBalance'), (myProfil.totalBalance / Math.pow(10, 18)));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/createdAt'), (myProfil.createdAt));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/clubName'), (myProfil.profile.clubName));
                 if (myProfil.profile.pictureUrl === "") {
-                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/pictureUrl'), ("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
+                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/pictureUrl'), ("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
                 }
                 else {
-                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/pictureUrl'), (myProfil.profile.pictureUrl));
+                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/pictureUrl'), (myProfil.profile.pictureUrl));
                 }
                 if (myProfil.allTimeBestDecksInFormation[0] != null) {
-                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/BestDeck'), (myProfil.allTimeBestDecksInFormation[0]));
+                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/BestDeck'), (myProfil.allTimeBestDecksInFormation[0]));
                 }
                 (0, database_1.onValue)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/'), (snapshot) => {
                     const allUsers = snapshot.val();
                     if (allUsers === undefined || allUsers === null) {
-                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (user));
+                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (global.user));
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/token'), (global.user_token));
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/date'), (Date()));
                     }
                     else {
                         const nbAlUsers = allUsers.length;
                         for (let i = 0; i < nbAlUsers; i++) {
-                            if (allUsers[i].user === user) {
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/user'), (user));
+                            if (allUsers[i].user === global.user) {
+                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/user'), (global.user));
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/token'), (global.user_token));
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/date'), (Date()));
                             }
                             else {
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/user'), (user));
+                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/user'), (global.user));
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/token'), (global.user_token));
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/date'), (Date()));
                             }
