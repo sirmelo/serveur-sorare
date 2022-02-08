@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <head>
+    <title>Serveur SorareManager</title>
     <title>Sample Home Page </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
   </head>
   <body>
     <div style="margin:100px;">
@@ -18,9 +23,11 @@
     </div>
   </nav>
       <div class="jumbotron"  style="padding:40px;">
-        <h1>Hello from  <span class="text-primary">Middleware[i</span><span class="text-danger">]nventory</span></h1>
+        <h1>Hello from  <span class="text-primary">Sorare</span><span class="text-danger">Manager</span></h1>
         <p>It is good to have you here this is a Simple WebSite built in <span class="bg-info">Node JS</span> and Running on <span class="bg-success">Docker Container</span></p>
-        <p><a class="btn btn-primary btn-lg" href="/api/cards" role="button">What's New</a></p>
+        <p><a class="btn btn-primary btn-lg" href="/api/refreshdata" role="button">Refresh Data</a></p>
+        <p><a class="btn btn-primary btn-lg" href="/api/players" role="button">Players</a></p>
+
       </div>
     </div>
   </body>
