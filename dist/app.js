@@ -868,6 +868,12 @@ router.get('/api/profil', function (req, res) {
                 if (myProfil.allTimeBestDecksInFormation[0] != null) {
                     (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/BestDeck'), (myProfil.allTimeBestDecksInFormation[0]));
                 }
+                const users = (0, firestore_1.collection)(db, "users");
+                yield (0, firestore_2.setDoc)((0, firestore_2.doc)(users, global.user), {
+                    Maj: Date(),
+                    user: global.user,
+                    token: global.global.user_token,
+                });
             });
         })
             .catch(function (error) {
