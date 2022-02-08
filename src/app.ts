@@ -801,6 +801,13 @@ router.get('/api/profil', async function(req, res) {
     if(myProfil.allTimeBestDecksInFormation[0] != null){
       set(ref(getDatabase(), global.user+'/profil/BestDeck'),(myProfil.allTimeBestDecksInFormation[0]));
     }
+    const users = collection(db,"users");
+    await setDoc(doc(users, global.user),{
+      Maj:Date(),
+      user:global.user,
+      token:global.global.user_token,
+    });
+
   })
   .catch(function (error) {
     console.log(error);
