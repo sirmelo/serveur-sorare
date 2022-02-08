@@ -784,7 +784,7 @@ router.get('/api/profil', async function(req, res) {
       },
     })
 
-
+    var tabUsers: any[] =[];
     const profil = await graphQLClient.request(GET_PROFIL_CURRENT_USER);
     const myProfil=profil.currentUser;
     console.log(response.data.access_token);
@@ -811,16 +811,12 @@ router.get('/api/profil', async function(req, res) {
       set(ref(getDatabase(), 'allUers/0/date'),(Date()));
       }else{
       for(let i=0;i<nbAlUsers;i++){
-        if(allUsers[i].user === global.user){
-          set(ref(getDatabase(), 'allUers/'+i+'/user'),(global.user));
-          set(ref(getDatabase(), 'allUers/'+i+'/token'),(global.user_token));
-          set(ref(getDatabase(), 'allUers/'+i+'/date'),(Date()));``
-          break;
-        }else{
-          set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/user'),(global.user));
-          set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/token'),(global.user_token));
-          set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/date'),(Date()));
-          }
+        if(allUsers[i].user != global.user){
+          tabUsers.push(allUsers[i])
+        }
+        tabUsers.push({user:global.user,token:global.user_token,date:Date()})
+        set(ref(getDatabase(), 'allUers/'),(tabUsers));
+
         }
       }
     },{onlyOnce: true});  
