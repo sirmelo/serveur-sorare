@@ -882,6 +882,8 @@ router.get('/api/profil', function (req, res) {
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/user'), (global.user));
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/token'), (global.user_token));
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/date'), (Date()));
+                                ``;
+                                break;
                             }
                             else {
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/user'), (global.user));
