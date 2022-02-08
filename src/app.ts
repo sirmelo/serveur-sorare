@@ -784,7 +784,6 @@ router.get('/api/profil', async function(req, res) {
       },
     })
 
-    var tabUsers: any[] =[];
     const profil = await graphQLClient.request(GET_PROFIL_CURRENT_USER);
     const myProfil=profil.currentUser;
     console.log(response.data.access_token);
@@ -805,6 +804,7 @@ router.get('/api/profil', async function(req, res) {
     onValue(ref(getDatabase(),'allUers/'), (snapshot:DataSnapshot) => {
       const allUsers = snapshot.val();
       const nbAlUsers  = allUsers.length
+      var tabUsers: any[] =[];
       if(allUsers === undefined || allUsers === null){
       set(ref(getDatabase(),'allUers/0/user'),(global.user));
       set(ref(getDatabase(), 'allUers/0/token'),(global.user_token));
