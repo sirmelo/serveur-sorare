@@ -820,11 +820,6 @@ router.get('/api/cards', (req,res) => {
 
   // cron.schedule('00 03  * *  *', function() {
   async function main(this:any) {
-
-    
-
-    
-
       const endpoint = 'https://api.sorare.com/graphql'
       const graphQLClient = new GraphQLClient(endpoint, {
         headers: {
@@ -1070,7 +1065,9 @@ router.get('/api/cards', (req,res) => {
         }
       }
       `;
-     
+
+
+    
   const dbRef = ref(getDatabase());
   const userWallet = await graphQLClient.request(GET_WALLET_CURRENT_USER);
 
@@ -1086,15 +1083,12 @@ router.get('/api/cards', (req,res) => {
   var tabBalanceSent: any[] =[];
   var tabBalanceReceived: any[] =[];
   var tabAllValue: any[] =[];
-
+  
   set(ref(getDatabase(), user+'/mycards/card/'),(""));
   set(ref(getDatabase(), user+'/myauctions/auction'), (""));
   set(ref(getDatabase(), user+'/mydirectoffers'), (""));
   set(ref(getDatabase(), user+'/mycards/nombreCards'), (nbRarityCards));
   set(ref(getDatabase(), user+'/profil/watching/totalWallet'),(userWallet.currentUser.totalBalance/Math.pow(10,18)));
-  set(ref(getDatabase(), user+'/profil/lastRefresh'),(Date()));
-
-
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
 
@@ -1574,11 +1568,15 @@ router.get('/api/cards', (req,res) => {
   //   }
   // },{onlyOnce: true});
 
+  
     console.log("Tous les joueurs ont été importé!" + Date());
-  
+
+    
     main().catch((error) => console.error(error))
-  
-  });
+
+});
+
+
 
 app1.use('/',router);
 app1.listen(port);
