@@ -805,7 +805,7 @@ router.get('/api/profil', async function(req, res) {
     await setDoc(doc(users, global.user),{
       Maj:Date(),
       user:global.user,
-      token:global.global.user_token,
+      token:global.user_token,
     });
 
   })
@@ -820,6 +820,11 @@ router.get('/api/cards', (req,res) => {
 
   // cron.schedule('00 03  * *  *', function() {
   async function main(this:any) {
+
+    
+
+    
+
       const endpoint = 'https://api.sorare.com/graphql'
       const graphQLClient = new GraphQLClient(endpoint, {
         headers: {
@@ -1065,9 +1070,7 @@ router.get('/api/cards', (req,res) => {
         }
       }
       `;
-
-
-    
+     
   const dbRef = ref(getDatabase());
   const userWallet = await graphQLClient.request(GET_WALLET_CURRENT_USER);
 
@@ -1568,15 +1571,11 @@ router.get('/api/cards', (req,res) => {
   //   }
   // },{onlyOnce: true});
 
-  
     console.log("Tous les joueurs ont été importé!" + Date());
-
-    
+  
     main().catch((error) => console.error(error))
-
-});
-
-
+  
+  });
 
 app1.use('/',router);
 app1.listen(port);
