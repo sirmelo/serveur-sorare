@@ -1143,15 +1143,12 @@ router.get('/api/cards', (req, res) => {
             var tabBalanceSent = [];
             var tabBalanceReceived = [];
             var tabAllValue = [];
-            var d = new Date();
-            d = new Date(d.setHours(d.getHours() + 2));
             (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/mycards/card/'), (""));
             (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/myauctions/auction'), (""));
             (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/mydirectoffers'), (""));
             (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/mycards/nombreCards'), (nbRarityCards));
             (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/watching/totalWallet'), (userWallet.currentUser.totalBalance / Math.pow(10, 18)));
             (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/lastRefresh'), (Date()));
-            (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/nextRefresh'), (d));
             const reducer = (previousValue, currentValue) => previousValue + currentValue;
             // #####################################
             // paginatedCards(first:300)############
