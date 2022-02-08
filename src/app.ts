@@ -1092,6 +1092,8 @@ router.get('/api/cards', (req,res) => {
   set(ref(getDatabase(), user+'/mydirectoffers'), (""));
   set(ref(getDatabase(), user+'/mycards/nombreCards'), (nbRarityCards));
   set(ref(getDatabase(), user+'/profil/watching/totalWallet'),(userWallet.currentUser.totalBalance/Math.pow(10,18)));
+  set(ref(getDatabase(), user+'/profil/lastRefresh'),(Date()));
+
   const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
 
