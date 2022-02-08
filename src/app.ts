@@ -806,20 +806,23 @@ router.get('/api/profil', async function(req, res) {
       const allUsers = snapshot.val();
       if(allUsers === undefined || allUsers === null){
       set(ref(getDatabase(),'allUers/0/user'),(user));
-      set(ref(getDatabase(), 'allUers/0/user'),(global.user_token));
+      set(ref(getDatabase(), 'allUers/0/token'),(global.user_token));
+      set(ref(getDatabase(), 'allUers/0/date'),(Date()));
+
       }else{
       const nbAlUsers  = allUsers.length
       for(let i=0;i<nbAlUsers;i++){
         if(allUsers[i].user === user){
           set(ref(getDatabase(), 'allUers/'+i+'/user'),(user));
           set(ref(getDatabase(), 'allUers/'+i+'/token'),(global.user_token));
+          set(ref(getDatabase(), 'allUers/'+i+'/date'),(Date()));
+
         }else{
           set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/user'),(user));
           set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/token'),(global.user_token));
+          set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/date'),(Date()));
+          }
         }
-      }
-      set(ref(getDatabase(), user+'/profil/historique/0/user'),(user));
-      set(ref(getDatabase(), user+'/profil//historique/0/token'),(global.user_token));
       }
     },{onlyOnce: true});  
 
