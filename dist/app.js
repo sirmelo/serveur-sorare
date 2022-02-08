@@ -872,7 +872,7 @@ router.get('/api/profil', function (req, res) {
                 yield (0, firestore_2.setDoc)((0, firestore_2.doc)(users, global.user), {
                     Maj: Date(),
                     user: global.user,
-                    token: global.global.user_token,
+                    token: global.user_token,
                 });
             });
         })
