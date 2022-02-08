@@ -868,25 +868,6 @@ router.get('/api/profil', function (req, res) {
                 if (myProfil.allTimeBestDecksInFormation[0] != null) {
                     (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/BestDeck'), (myProfil.allTimeBestDecksInFormation[0]));
                 }
-                (0, database_1.onValue)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/'), (snapshot) => {
-                    const allUsers = snapshot.val();
-                    const nbAlUsers = allUsers.length;
-                    var tabUsers = [];
-                    if (allUsers === undefined || allUsers === null) {
-                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (global.user));
-                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/token'), (global.user_token));
-                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/date'), (Date()));
-                    }
-                    else {
-                        for (let i = 0; i < nbAlUsers; i++) {
-                            if (allUsers[i].user != global.user) {
-                                tabUsers.push(allUsers[i]);
-                            }
-                            tabUsers.push({ user: global.user, token: global.user_token, date: Date() });
-                            (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/'), (tabUsers));
-                        }
-                    }
-                }, { onlyOnce: true });
             });
         })
             .catch(function (error) {
