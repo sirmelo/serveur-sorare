@@ -834,7 +834,7 @@ router.get('/api/profil', function (req, res) {
   }
   `;
         const code = req.query.code;
-        global.user = req.query.user;
+        const user = req.query.user;
         console.log(global.user);
         console.log(code);
         const headers = { 'content-type': 'application/x-www-form-urlencoded' };
@@ -842,11 +842,11 @@ router.get('/api/profil', function (req, res) {
             .then(function (response) {
             return __awaiter(this, void 0, void 0, function* () {
                 res = response.data.access_token;
-                global.user_token = response.data.access_token;
+                const user_token = response.data.access_token;
                 const endpoint = 'https://api.sorare.com/graphql';
                 const graphQLClient = new graphql_request_1.GraphQLClient(endpoint, {
                     headers: {
-                        Authorization: 'Bearer ' + global.user_token + '',
+                        Authorization: 'Bearer ' + user_token + '',
                         'content-type': 'application/json'
                     },
                 });
@@ -854,26 +854,26 @@ router.get('/api/profil', function (req, res) {
                 const myProfil = profil.currentUser;
                 console.log(response.data.access_token);
                 console.log(myProfil);
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/token'), (global.user_token));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/nickname'), (myProfil.nickname));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/totalBalance'), (myProfil.totalBalance / Math.pow(10, 18)));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/createdAt'), (myProfil.createdAt));
-                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/clubName'), (myProfil.profile.clubName));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/token'), (user_token));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/nickname'), (myProfil.nickname));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/totalBalance'), (myProfil.totalBalance / Math.pow(10, 18)));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/createdAt'), (myProfil.createdAt));
+                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/clubName'), (myProfil.profile.clubName));
                 if (myProfil.profile.pictureUrl === "") {
-                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/pictureUrl'), ("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
+                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/pictureUrl'), ("https://firebasestorage.googleapis.com/v0/b/betsorare.appspot.com/o/avatar-unknow.png?alt=media&token=8b97f8a9-3c6b-4c46-b0f7-e9b31317d83b"));
                 }
                 else {
-                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/pictureUrl'), (myProfil.profile.pictureUrl));
+                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/pictureUrl'), (myProfil.profile.pictureUrl));
                 }
                 if (myProfil.allTimeBestDecksInFormation[0] != null) {
-                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), global.user + '/profil/BestDeck'), (myProfil.allTimeBestDecksInFormation[0]));
+                    (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/BestDeck'), (myProfil.allTimeBestDecksInFormation[0]));
                 }
-                const users = (0, firestore_1.collection)(db, "users");
-                yield (0, firestore_2.setDoc)((0, firestore_2.doc)(users, global.user), {
-                    Maj: Date(),
-                    user: global.user,
-                    token: global.user_token,
-                });
+                // const users = collection(db,"users");
+                // await setDoc(doc(users, global.user),{
+                //   Maj:Date(),
+                //   user:global.user,
+                //   token:global.user_token,
+                // });
             });
         })
             .catch(function (error) {
