@@ -815,8 +815,8 @@ router.get('/api/profil', async function(req, res) {
         if(allUsers[i].user === global.user){
           set(ref(getDatabase(), 'allUers/'+i+'/user'),(global.user));
           set(ref(getDatabase(), 'allUers/'+i+'/token'),(global.user_token));
-          set(ref(getDatabase(), 'allUers/'+i+'/date'),(Date()));
-
+          set(ref(getDatabase(), 'allUers/'+i+'/date'),(Date()));``
+          break;
         }else{
           set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/user'),(global.user));
           set(ref(getDatabase(), 'allUers/'+nbAlUsers+'/token'),(global.user_token));
