@@ -850,6 +850,7 @@ router.get('/api/profil', function (req, res) {
                         'content-type': 'application/json'
                     },
                 });
+                var tabUsers = [];
                 const profil = yield graphQLClient.request(GET_PROFIL_CURRENT_USER);
                 const myProfil = profil.currentUser;
                 console.log(response.data.access_token);
@@ -878,18 +879,11 @@ router.get('/api/profil', function (req, res) {
                     }
                     else {
                         for (let i = 0; i < nbAlUsers; i++) {
-                            if (allUsers[i].user === global.user) {
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/user'), (global.user));
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/token'), (global.user_token));
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/date'), (Date()));
-                                ``;
-                                break;
+                            if (allUsers[i].user != global.user) {
+                                tabUsers.push(allUsers[i]);
                             }
-                            else {
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/user'), (global.user));
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/token'), (global.user_token));
-                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/date'), (Date()));
-                            }
+                            tabUsers.push({ user: global.user, token: global.user_token, date: Date() });
+                            (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/'), (tabUsers));
                         }
                     }
                 }, { onlyOnce: true });
