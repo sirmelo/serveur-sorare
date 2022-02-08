@@ -870,12 +870,22 @@ router.get('/api/profil', function (req, res) {
                 }
                 (0, database_1.onValue)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/'), (snapshot) => {
                     const allUsers = snapshot.val();
-                    if (allUsers != undefined && allUsers != null) {
-                        const nbAlUsers = allUsers.length;
-                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/user'), (user));
-                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/token'), (user_token));
+                    if (allUsers === undefined || allUsers === null) {
+                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (user));
+                        (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (user_token));
                     }
                     else {
+                        const nbAlUsers = allUsers.length;
+                        for (let i = 0; i < nbAlUsers; i++) {
+                            if (allUsers[i].user === user) {
+                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/user'), (user));
+                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/token'), (user_token));
+                            }
+                            else {
+                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/user'), (user));
+                                (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + nbAlUsers + '/token'), (user_token));
+                            }
+                        }
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil/historique/0/user'), (user));
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), user + '/profil//historique/0/token'), (user_token));
                     }
