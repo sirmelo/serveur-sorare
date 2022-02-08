@@ -870,13 +870,13 @@ router.get('/api/profil', function (req, res) {
                 }
                 (0, database_1.onValue)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/'), (snapshot) => {
                     const allUsers = snapshot.val();
+                    const nbAlUsers = allUsers.length;
                     if (allUsers === undefined || allUsers === null) {
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/user'), (global.user));
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/token'), (global.user_token));
                         (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/0/date'), (Date()));
                     }
                     else {
-                        const nbAlUsers = allUsers.length;
                         for (let i = 0; i < nbAlUsers; i++) {
                             if (allUsers[i].user === global.user) {
                                 (0, database_1.set)((0, database_1.ref)((0, database_1.getDatabase)(), 'allUers/' + i + '/user'), (global.user));
