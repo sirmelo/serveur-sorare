@@ -804,13 +804,12 @@ router.get('/api/profil', async function(req, res) {
     }
     onValue(ref(getDatabase(),'allUers/'), (snapshot:DataSnapshot) => {
       const allUsers = snapshot.val();
+      const nbAlUsers  = allUsers.length
       if(allUsers === undefined || allUsers === null){
       set(ref(getDatabase(),'allUers/0/user'),(global.user));
       set(ref(getDatabase(), 'allUers/0/token'),(global.user_token));
       set(ref(getDatabase(), 'allUers/0/date'),(Date()));
-
       }else{
-      const nbAlUsers  = allUsers.length
       for(let i=0;i<nbAlUsers;i++){
         if(allUsers[i].user === global.user){
           set(ref(getDatabase(), 'allUers/'+i+'/user'),(global.user));
