@@ -806,7 +806,7 @@ router.get('/api/profil', async function(req, res) {
       user:global.user,
       token:user_token,
     });
-  axios.get('https://serveur-sorare.herokuapp.com//api/cards/?token='+user_token+'&user='+global.user+'').then(resp => {
+  axios.get('https://serveur-sorare.herokuapp.com/api/cards/?token='+user_token+'&user='+global.user+'').then(resp => {
     console.log('en marche');
 });
 
